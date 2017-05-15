@@ -34,31 +34,26 @@ AV.Cloud.define('searchByLocation', function (req, res) {
   });
 
 
-  var fetchCityAQIPromise = new Promise(function (resolve, reject) {
+  getCityNamePromise.then(function (cityName) {
 
-    getCityNamePromise.then(function (cityName) {
+    var query = new AV.Query('CityAQI');
+    query.equalTo('cityName', cityName);
+    query.greaterThan('createdAt', new Date(new Date() - 3600000));
 
-      var query = new AV.Query('CityAQI');
-      query.equalTo('cityName', cityName);
-      query.greaterThan('createdAt', new Date(new Date() - 3600000));
-
-      query.first().then(function (result) {
-        if (result) {
-          resolve(result);
-        } else {
-          reject(cityName);
-        }
-      }, function (error) {
-        console.error('Failed to fetch cityAQI, with error message: ' + error.message);
-      });
-    })
+    query.first().then(function (result) {
+      if (result) {
+        console.log("Fetched CityAQI Data from storage with id:" + result.id);
+        res.success(result.get('data'));
+      } else {
+        fetchCityDetails(cityName)
+      }
+    }, function (error) {
+      console.error('Failed to fetch cityAQI, with error message: ' + error.message);
+    });
   });
 
 
-  fetchCityAQIPromise.then(function (result) {
-    console.log("Fetched CityAQI Data from storage with id:" + result.id);
-    res.success(result.get('data'));
-  }).catch(function (cityName) {
+  function fetchCityDetails(cityName) {
     request(encodeURI("http://www.pm25.in/api/querys/aqi_details.json?city=" + cityName + "&token=RQCxTwiUMjhhcL4k3S3a"), function (error, response, body) {
       if (!error) {
         var CityAQI = AV.Object.extend('CityAQI');
@@ -76,7 +71,7 @@ AV.Cloud.define('searchByLocation', function (req, res) {
       }
 
     })
-  })
+  }
 });
 
 module.exports = AV.Cloud;
