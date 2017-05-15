@@ -51,7 +51,6 @@ AV.Cloud.define('searchByLocation', function (req, res) {
       }, function (error) {
         console.error('Failed to fetch cityAQI, with error message: ' + error.message);
       });
-
     })
   });
 
@@ -60,26 +59,6 @@ AV.Cloud.define('searchByLocation', function (req, res) {
     console.log("Fetched CityAQI Data from storage with id:" + result.id);
     res.success(result.get('data'));
   }).catch(function (cityName) {
-    request({
-      method: 'GET',
-      url: encodeURI("http://www.pm25.in/api/querys/aqi_details.json?city=" + cityName + "&token=RQCxTwiUMjhhcL4k3S3a"),
-      success: function (httpResponse) {
-        var CityAQI = AV.Object.extend('CityAQI');
-        var cityAQI = new CityAQI();
-        cityAQI.set('cityName', cityName);
-        cityAQI.set('data', httpResponse.text);
-        cityAQI.save().then(function (cityAQI) {
-          console.log('New ' + cityName + ' cityAQI created with objectId: ' + cityAQI.id);
-        }, function (error) {
-          console.error('Failed to create new cityAQI, with error message: ' + error.message);
-        });
-        res.success(httpResponse.text);
-      },
-      error: function (httpResponse) {
-        console.error('Request failed with response code ' + httpResponse.status);
-      }
-    });
-
     request(encodeURI("http://www.pm25.in/api/querys/aqi_details.json?city=" + cityName + "&token=RQCxTwiUMjhhcL4k3S3a"), function (error, response, body) {
       if (!error) {
         var CityAQI = AV.Object.extend('CityAQI');
@@ -92,7 +71,6 @@ AV.Cloud.define('searchByLocation', function (req, res) {
           console.error('Failed to create new cityAQI, with error message: ' + error.message);
         });
         res.success(body);
-
       } else {
         console.error('Request failed with response: ' + error);
       }
