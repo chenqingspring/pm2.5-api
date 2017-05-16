@@ -27,7 +27,7 @@ allCities.forEach(function (item, index) {
           dl.set('lng', location.lng);
           dl.set('lat', location.lat);
           dl.save().then(function (districtLocation) {
-            console.log('New ' + districtName + 'location created with objectId: ' + districtLocation.id);
+            console.log('New ' + districtName + ' location created with objectId: ' + districtLocation.id);
           }, function (error) {
             console.error('Failed to create new location, with error message: ' + error.message);
           });
