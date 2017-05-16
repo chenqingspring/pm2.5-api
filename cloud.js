@@ -45,7 +45,7 @@ AV.Cloud.define('searchByLocation', function (req, res) {
         console.log("Fetched CityAQI Data from storage with id:" + result.id);
         res.success(result.get('data'));
       } else {
-        fetchCityDetails(cityName)
+        fetchCityDetails(cityName);
       }
     }, function (error) {
       console.error('Failed to fetch cityAQI, with error message: ' + error.message);
@@ -58,18 +58,57 @@ AV.Cloud.define('searchByLocation', function (req, res) {
       if (!error) {
         var CityAQI = AV.Object.extend('CityAQI');
         var cityAQI = new CityAQI();
-        cityAQI.set('cityName', cityName);
-        cityAQI.set('data', body);
-        cityAQI.save().then(function (cityAQI) {
-          console.log('New ' + cityName + ' cityAQI created with objectId: ' + cityAQI.id);
-        }, function (error) {
-          console.error('Failed to create new cityAQI, with error message: ' + error.message);
+
+
+        var districtsPromise = new Promise(function (resolve, reject) {
+          var districts = [];
+          var bodyJson = JSON.parse(body);
+
+          bodyJson.map(function (district) {
+            if (!!district.position_name) {
+              var query = new AV.Query('DistrictLocation');
+              query.equalTo('city', district.area);
+              query.equalTo('district', district.position_name);
+
+              query.first().then(function (result) {
+                if (result) {
+                  district.lat = result.get('lat');
+                  district.lng = result.get('lng');
+                } else {
+                  console.error('DistrictLocation:' + district.area + district.position_name + ' is not found');
+                }
+                districts.push(district);
+              }, function (error) {
+                console.error('Failed to fetch DistrictLocation, with error message: ' + error.message);
+                districts.push(district);
+              });
+            } else {
+              districts.push(district);
+            }
+          });
+
+          var timer = setInterval(function () {
+            if (districts.length == bodyJson.length) {
+              clearInterval(timer);
+              resolve(districts);
+            }
+          })
         });
-        res.success(body);
+
+        districtsPromise.then(function (districts) {
+          cityAQI.set('data', JSON.stringify(districts));
+          cityAQI.set('cityName', cityName);
+
+          cityAQI.save().then(function (cityAQI) {
+            console.log('New ' + cityName + ' cityAQI created with objectId: ' + cityAQI.id);
+          }, function (error) {
+            console.error('Failed to create new cityAQI, with error message: ' + error.message);
+          });
+          res.success(JSON.stringify(districts));
+        });
       } else {
         console.error('Request failed with response: ' + error);
       }
-
     })
   }
 });
