@@ -24,6 +24,9 @@ AV.Cloud.define('fetchCityRanking', function (req, res) {
 AV.Cloud.define('searchByLocation', function (req, res) {
 
   var getCityNamePromise = new Promise(function (resolve, reject) {
+
+    if (!!req.params.cityName) return resolve(req.params.cityName);
+
     request("http://apis.map.qq.com/ws/geocoder/v1/?location=" + req.params.lat + "," + req.params.lng + "&key=XBMBZ-W37A4-LFPUE-D55AO-RSLZK-HMBJ6", function (error, response, body) {
       if (!error) {
         var cityName = JSON.parse(body).result.address_component.city.replace("市", "");
