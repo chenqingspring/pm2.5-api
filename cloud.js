@@ -59,46 +59,32 @@ AV.Cloud.define('searchByLocation', function (req, res) {
   function fetchCityDetails(cityName) {
     request(encodeURI("http://www.pm25.in/api/querys/aqi_details.json?city=" + cityName + "&token=RQCxTwiUMjhhcL4k3S3a"), function (error, response, body) {
       if (!error) {
-        var CityAQI = AV.Object.extend('CityAQI');
-        var cityAQI = new CityAQI();
+        var bodyJson = JSON.parse(body);
 
+        var districtsPromise = bodyJson.map(function (district) {
+          var query = new AV.Query('DistrictLocation');
+          query.equalTo('city', district.area);
+          query.equalTo('district', district.position_name);
+          return query.first();
+        });
 
-        var districtsPromise = new Promise(function (resolve, reject) {
-          var districts = [];
-          var bodyJson = JSON.parse(body);
-
-          bodyJson.map(function (district) {
-            if (!!district.position_name) {
-              var query = new AV.Query('DistrictLocation');
-              query.equalTo('city', district.area);
-              query.equalTo('district', district.position_name);
-
-              query.first().then(function (result) {
-                if (result) {
-                  district.lat = result.get('lat');
-                  district.lng = result.get('lng');
-                } else {
-                  console.error('DistrictLocation:' + district.area + district.position_name + ' is not found');
-                }
-                districts.push(district);
-              }, function (error) {
-                console.error('Failed to fetch DistrictLocation, with error message: ' + error.message);
-                districts.push(district);
-              });
-            } else {
-              districts.push(district);
-            }
-          });
-
-          var timer = setInterval(function () {
-            if (districts.length == bodyJson.length) {
-              clearInterval(timer);
-              resolve(districts);
-            }
+        var processDistrictsPromise = new Promise(function (resolve, reject) {
+          Promise.all(districtsPromise).then(function (results) {
+            resolve(results.map(function (result, index) {
+              var district = bodyJson[index];
+              if (!(result && result.get('lat'))) {
+                return Object.assign({}, district, {});
+              } else {
+                return Object.assign({}, district, {lat: result.get('lat'), lng: result.get('lng')})
+              }
+            }))
           })
         });
 
-        districtsPromise.then(function (districts) {
+        processDistrictsPromise.then(function (districts) {
+          var CityAQI = AV.Object.extend('CityAQI');
+          var cityAQI = new CityAQI();
+
           cityAQI.set('data', JSON.stringify(districts));
           cityAQI.set('cityName', cityName);
 
