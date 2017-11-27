@@ -4,7 +4,7 @@ start.sh
 .avoscloud
 .leancloud
 .idea
-
+public/bundle.js
 # VIM
 *~
 *.swp
