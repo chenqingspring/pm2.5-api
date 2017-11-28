@@ -7,6 +7,7 @@ import PollutionLevel from './components/pollution-level'
 import SearchArea from './components/search-area'
 import Highlight from './components/highlight'
 import QrCode from './components/qrcode'
+import Button from './components/button'
 
 module.exports = React.createClass({
   displayName: 'list',
@@ -18,6 +19,9 @@ module.exports = React.createClass({
         <SearchArea/>
         <Highlight/>
         <QrCode/>
+        <Button text="10佳城市" class="btn-success"/>
+        <Button text="10差城市" class="btn-danger"/>
+
       </div>
     );
   }
