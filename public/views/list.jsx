@@ -6,6 +6,7 @@ var Router = require('react-router');
 import PollutionLevel from './components/pollution-level'
 import SearchArea from './components/search-area'
 import Highlight from './components/highlight'
+import QrCode from './components/qrcode'
 
 module.exports = React.createClass({
   displayName: 'list',
@@ -16,6 +17,7 @@ module.exports = React.createClass({
         <PollutionLevel/>
         <SearchArea/>
         <Highlight/>
+        <QrCode/>
       </div>
     );
   }
