@@ -20,8 +20,12 @@ module.exports = React.createClass({
         <SearchArea/>
         <Highlight/>
         <QrCode/>
-        <Button text="10佳城市" class="btn-success"/>
-        <Button text="10差城市" class="btn-danger"/>
+        <Router.Link to={`/sort/top10`}>
+          <Button text="10佳城市" class="btn-success"/>
+        </Router.Link>
+        <Router.Link to={`/sort/bottom10`}>
+          <Button text="10差城市" class="btn-danger"/>
+        </Router.Link>
         <FooterText/>
       </div>
     );
