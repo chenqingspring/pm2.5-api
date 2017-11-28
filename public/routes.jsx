@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, Redirect, browserHistory } from 'react-route
 import Layout from './views/layout';
 import Top from './views/top'
 import Index from './views/index';
-import DetailPage from './views/detail';
+import Zone from './views/zone';
 import NotFound from './views/404';
 
 module.exports = (
@@ -14,7 +14,7 @@ module.exports = (
     <Route path='/' component={Layout}>
       <IndexRoute component={Index} />
       <Route path='/sort/:sort_by' component={Top} />
-      <Redirect from='/gohome' to='/' />
+      <Route path='/zones/:city' component={Zone} />
       <Route path='*' component={NotFound} />
     </Route>
   </Router>
