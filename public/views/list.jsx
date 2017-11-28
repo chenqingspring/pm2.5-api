@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   render: function render() {
     return (
-      <div>
+      <div id="index">
         <PollutionLevel/>
         <SearchArea/>
         <Highlight/>
