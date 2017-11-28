@@ -1,0 +1,180 @@
+#zones {
+    padding: 1.2em;
+}
+
+#zones .alert {
+    margin-bottom: 5px
+}
+
+.awesome {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6
+}
+
+.good {
+    color: #77733A;
+    background-color: #f0e157;
+    border-color: #e9e08f
+}
+
+.little-polluted {
+    color: #74623C;
+    background-color: #f0b35f;
+    border-color: #e9c9a5
+}
+
+
+.medium-polluted {
+    color: #773D3A;
+    background-color: #f7826b;
+    border-color: #f1a19e
+}
+
+.highly-polluted {
+    color: #6E3665;
+    background-color: #fc74ea;
+    border-color: #fa9cf7
+}
+
+.heavy-polluted {
+    color: #744b65;
+    background-color: #f2469d;
+    border-color: #eb678b
+}
+
+.city-title {
+    font-family: initial,serif;
+    font-weight: bolder;
+    font-size: large;
+}
+
+p.footer-text {
+    text-align: right;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: gray;
+}
+
+.position-name {
+    margin-right: 5%;
+}
+
+.container-right {
+    display: inline;
+    float: right;
+    width: 37%;
+}
+
+.pm25-value {
+    font-weight: bold;
+}
+
+.quality {
+    float: right;
+}
+
+button.btn.btn-success.btn-lg {
+    width: 49%;
+}
+
+button.btn.btn-danger.btn-lg {
+    width: 49%;
+    float: right;
+}
+
+#bottom .alert,
+#top .alert {
+    margin-bottom: 5px
+}
+
+#index,
+#bottom,
+#top {
+    padding: 1.2em;
+}
+
+#bottom button.btn.btn-primary.btn-lg {
+    width: 100%;
+}
+
+#top button.btn.btn-info.btn-lg {
+    width: 100%;
+}
+
+#brand-text {
+    margin-top: 10px
+}
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+    url('/images/loading.gif')
+    50% 50%
+    no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .modal {
+    display: block;
+}
+
+#index .col-lg-6,
+#zones .col-lg-6,
+#top .col-lg-6,
+#bottom .col-lg-6{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+img.qrcode {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+#index h4,
+#index h5 {
+    font-weight: bolder;
+}
+
+.para {
+    color: #333;
+    margin-bottom: 5px;
+    text-indent: 2em;
+    line-height: 24px;
+}
+
+body {
+    background-color: #fafafa !important;
+}
+
+.home {
+    float:right;
+    margin-bottom: 20px;
+}
+.home a {
+    position: relative;
+    right: 10px;
+    font-size: large;
+    font-weight: 500;
+}
+
+.center {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-left: -66px;
+    margin-top: 25px
+}​

@@ -9,7 +9,8 @@ class Layout extends React.Component {
         <head>
           <meta charSet='utf-8' />
           <title>React-on-Express</title>
-          <link rel='stylesheet' href='/styles.css'></link>
+          <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'></link>
+          <link rel='stylesheet' href='/stylesheets/app.css'></link>
         </head>
         <body>
           <div>
