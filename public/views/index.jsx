@@ -2,16 +2,15 @@
 
 var React = require('react');
 var Router = require('react-router');
-
-import PollutionLevel from './components/pollution-level'
+import PollutionLevel from './components/index/pollution-level'
 import SearchArea from './components/search-area'
-import Highlight from './components/highlight'
-import QrCode from './components/qrcode'
+import Highlight from './components/index/highlight'
+import QrCode from './components/index/qrcode'
 import Button from './components/button'
-import FooterText from './components/footer-text'
+import FooterText from './components/index/footer-text'
 
 module.exports = React.createClass({
-  displayName: 'list',
+  displayName: 'index',
 
   render: function render() {
     return (
