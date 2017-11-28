@@ -1,6 +1,13 @@
 'use strict';
 
 import React from 'react'
+import Alerts from './components/top/alerts'
+import PollutionLevel from './components/pollution-level'
+import AearchArea from './components/search-area'
+import Button from './components/button'
+import FooterText from './components/top/footer-text'
+import BackHome from './components/back-home'
+var Router = require('react-router');
 
 class Top extends React.Component {
 
@@ -10,20 +17,15 @@ class Top extends React.Component {
 
     return (
       <div id="top">
-
-        <h4 className="top-title">今日全国pm2.5十差城市</h4>
-
-        <div className="alert awesome">
-          <span className="position-name">
-            1.林芝地区
-          </span>
-          <div className="container-right">
-            <span className="pm25-value">4</span>
-            <span className="quality">优</span>
-          </div>
-        </div>
-
-        {sortBy}
+        <h4 className="top-title">今日全国pm2.5十差{sortBy}城市</h4>
+        <Alerts/>
+        <PollutionLevel/>
+        <AearchArea/>
+        <Button text="10佳城市" class="btn-success"/>
+        <FooterText/>
+        <Router.Link to={`/`}>
+          <BackHome/>
+        </Router.Link>
       </div>
     )
   }
