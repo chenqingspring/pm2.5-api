@@ -8,6 +8,7 @@ import SearchArea from './components/search-area'
 import Highlight from './components/highlight'
 import QrCode from './components/qrcode'
 import Button from './components/button'
+import FooterText from './components/footer-text'
 
 module.exports = React.createClass({
   displayName: 'list',
@@ -21,7 +22,7 @@ module.exports = React.createClass({
         <QrCode/>
         <Button text="10佳城市" class="btn-success"/>
         <Button text="10差城市" class="btn-danger"/>
-
+        <FooterText/>
       </div>
     );
   }
