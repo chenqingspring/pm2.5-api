@@ -7,7 +7,6 @@ import AearchArea from './components/search-area'
 import Button from './components/button'
 import FooterText from './components/top/footer-text'
 import BackHome from './components/back-home'
-var Router = require('react-router');
 
 class Top extends React.Component {
 
@@ -23,9 +22,7 @@ class Top extends React.Component {
         <AearchArea/>
         <Button text="10佳城市" class="btn-success"/>
         <FooterText/>
-        <Router.Link to={`/`}>
-          <BackHome/>
-        </Router.Link>
+        <BackHome/>
       </div>
     )
   }
