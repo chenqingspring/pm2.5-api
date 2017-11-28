@@ -10,7 +10,7 @@ class Button extends React.Component {
 
   render() {
     return (
-      <button className={`btn ${this.props.class} btn-lg`}>
+      <button className={this.props.class}>
         <span className="glyphicon glyphicon-thumbs-up">
           {this.props.text}
         </span>

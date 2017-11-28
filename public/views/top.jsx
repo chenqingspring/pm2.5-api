@@ -12,15 +12,17 @@ class Top extends React.Component {
 
   render() {
 
-    const sortBy = this.props.params.sort_by
+    const sortBy = this.props.params.sort_by;
 
     return (
-      <div id="top">
+      <div id={sortBy == 'top10'? 'top': 'bottom'}>
         <h4 className="top-title">今日全国pm2.5十差{sortBy}城市</h4>
         <Alerts/>
         <PollutionLevel/>
         <AearchArea/>
-        <Button text="10佳城市" class="btn-success"/>
+        <Button text={`10${sortBy == 'top10'? '佳': '差'}城市`}
+                class={`btn ${sortBy == 'top10'? 'btn-info': 'btn-primary'} btn-lg`}
+        />
         <FooterText/>
         <BackHome/>
       </div>
