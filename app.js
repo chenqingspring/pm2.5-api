@@ -32,7 +32,7 @@ app.engine('.jsx', engine);
 app.set('views', join(__dirname, '/public/views'))
 app.set('view engine', 'jsx');
 app.set('view', ReactEngine.expressView);
-app.use(favicon(join(__dirname, '/public/favicon.ico')));
+app.use(favicon(join(__dirname, '/public/images/favicon.ico')));
 
 
 // 设置模板引擎
